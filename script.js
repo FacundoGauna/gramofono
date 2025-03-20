@@ -5,12 +5,9 @@ let isPlaying = false;
 let isDragging = false;
 let rotation = null;
 
-// Detectar si es un dispositivo táctil
-const isTouchDevice = "ontouchstart" in window;
-
 // Función para iniciar el arrastre
 function startDrag(e) {
-    e.preventDefault(); // Evita comportamientos no deseados (scroll en móvil)
+    e.preventDefault(); // Prevenir comportamientos inesperados
     isDragging = true;
 }
 
@@ -18,24 +15,26 @@ function startDrag(e) {
 function moveNeedle(e) {
     if (!isDragging) return;
 
-    // Si es táctil, tomar el primer punto de contacto
-    let clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+    // Detectar si es touch o mouse y obtener X
+    let clientX = e.touches ? e.touches[0].clientX : e.clientX;
 
-    // Calcular el ángulo basado en la posición del toque o ratón
+    // Calcular el ángulo de la aguja
     let angle = Math.min(45, Math.max(-45, (window.innerWidth - clientX) / window.innerWidth * 90 - 45));
     needle.style.transform = `rotate(${angle}deg)`;
 
-    // Activar música cuando la aguja está fuera del rango central
+    // Activar música cuando la aguja está fuera del centro
     if (angle <= -15 || angle >= 15) {
         if (!isPlaying) {
             isPlaying = true;
             music.play();
             rotateDisc();
         }
-    } else if (isPlaying) { // Detener música cuando está centrado
-        isPlaying = false;
-        music.pause();
-        cancelAnimationFrame(rotation);
+    } else {
+        if (isPlaying) {
+            isPlaying = false;
+            music.pause();
+            cancelAnimationFrame(rotation);
+        }
     }
 }
 
@@ -45,17 +44,17 @@ function stopDrag(e) {
     isDragging = false;
 }
 
-// Usar eventos de puntero (funciona para mouse y touch)
-needle.addEventListener("pointerdown", startDrag);
-document.addEventListener("pointermove", moveNeedle);
-document.addEventListener("pointerup", stopDrag);
-
-// Extra: Manejo específico para táctiles si `pointerevents` no funciona
+// Agregar eventos de ratón y táctiles
+needle.addEventListener("mousedown", startDrag);
 needle.addEventListener("touchstart", startDrag, { passive: false });
-document.addEventListener("touchmove", moveNeedle, { passive: false });
-document.addEventListener("touchend", stopDrag, { passive: false });
 
-// Función para hacer girar el disco
+document.addEventListener("mousemove", moveNeedle);
+document.addEventListener("touchmove", moveNeedle, { passive: false });
+
+document.addEventListener("mouseup", stopDrag);
+document.addEventListener("touchend", stopDrag);
+
+// Función para girar el disco
 function rotateDisc() {
     let deg = 0;
     function animate() {
