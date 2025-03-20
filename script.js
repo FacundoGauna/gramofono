@@ -5,12 +5,12 @@ let isPlaying = false;
 let isDragging = false;
 let rotation = null;
 
-// Detectar si es táctil
+// Detectar si es un dispositivo táctil
 const isTouchDevice = "ontouchstart" in window;
 
 // Función para iniciar el arrastre
 function startDrag(e) {
-    e.preventDefault();
+    e.preventDefault(); // Evita comportamientos no deseados (scroll en móvil)
     isDragging = true;
 }
 
@@ -18,10 +18,10 @@ function startDrag(e) {
 function moveNeedle(e) {
     if (!isDragging) return;
 
-    // Obtener coordenadas del ratón o del dedo
-    let clientX = e.clientX || e.touches?.[0]?.clientX || 0;
+    // Si es táctil, tomar el primer punto de contacto
+    let clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
 
-    // Calcular ángulo (ajustado para dispositivos móviles)
+    // Calcular el ángulo basado en la posición del toque o ratón
     let angle = Math.min(45, Math.max(-45, (window.innerWidth - clientX) / window.innerWidth * 90 - 45));
     needle.style.transform = `rotate(${angle}deg)`;
 
@@ -40,9 +40,20 @@ function moveNeedle(e) {
 }
 
 // Función para detener el arrastre
-function stopDrag() {
+function stopDrag(e) {
+    e.preventDefault();
     isDragging = false;
 }
+
+// Usar eventos de puntero (funciona para mouse y touch)
+needle.addEventListener("pointerdown", startDrag);
+document.addEventListener("pointermove", moveNeedle);
+document.addEventListener("pointerup", stopDrag);
+
+// Extra: Manejo específico para táctiles si `pointerevents` no funciona
+needle.addEventListener("touchstart", startDrag, { passive: false });
+document.addEventListener("touchmove", moveNeedle, { passive: false });
+document.addEventListener("touchend", stopDrag, { passive: false });
 
 // Función para hacer girar el disco
 function rotateDisc() {
@@ -56,8 +67,3 @@ function rotateDisc() {
     }
     animate();
 }
-
-// Eventos de puntero (funciona para mouse y touch)
-needle.addEventListener("pointerdown", startDrag);
-document.addEventListener("pointermove", moveNeedle);
-document.addEventListener("pointerup", stopDrag);
