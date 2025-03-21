@@ -26,14 +26,14 @@ function moveNeedle(e) {
     let centerX = window.innerWidth / 2;
 
     // Calcular ángulo basado en la posición del dedo o ratón
-    let angle = ((centerX - clientX) / centerX) * 45; 
-    angle = Math.max(0, Math.min(45, angle)); // Limitar entre 0° y -45° (solo a la izquierda)
+    let angle = ((centerX - clientX) / centerX) * 1000; 
+    angle = Math.max(0, Math.min(30, angle)); // Limitar entre 0° y -45° (solo a la izquierda)
 
     // Aplicar la rotación sin afectar la posición de la aguja
     needle.style.transform = `rotate(${angle}deg)`;
 
     // Activar música cuando la aguja está sobre el vinilo
-    if (angle >= 25) { 
+    if (angle >= 15) { 
         if (!isPlaying) {
             isPlaying = true;
             music.play();
