@@ -49,7 +49,7 @@ h2 { font-size: 1.2rem; }
 }
 
 /* Centro del disco */
-.disc::after {
+.disc {
     content: "";
     width: 15%;
     height: 15%;
