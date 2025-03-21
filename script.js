@@ -27,7 +27,7 @@ function moveNeedle(e) {
 
     // Calcular ángulo basado en la posición del dedo o ratón
     let angle = ((centerX - clientX) / centerX) * 45; 
-    angle = Math.max(-45, Math.min(0, angle)); // Limitar entre 0° y -45°
+    angle = Math.max(-45, Math.min(0, angle)); // Limitar entre 0° y -45° (solo a la izquierda)
 
     // Aplicar la rotación sin afectar la posición de la aguja
     needle.style.transform = `rotate(${angle}deg)`;
@@ -64,14 +64,14 @@ document.addEventListener("touchmove", moveNeedle, { passive: false });
 document.addEventListener("mouseup", stopDrag);
 document.addEventListener("touchend", stopDrag);
 
-// Función para girar el disco
+// Función para girar el disco (sin impulsos)
 function rotateDisc() {
     let deg = 0;
     function animate() {
         if (isPlaying) {
-            deg = (deg + 1) % 360;
-            disc.style.transform = `rotate(${deg}deg)`;
-            rotation = requestAnimationFrame(animate);
+            deg += 1; // Incrementar el ángulo de rotación de forma constante
+            disc.style.transform = `rotate(${deg}deg)`; // Girar el disco
+            rotation = requestAnimationFrame(animate); // Solicitar el siguiente frame para continuar la animación
         }
     }
     animate();
