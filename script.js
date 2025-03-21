@@ -37,6 +37,7 @@ function moveNeedle(e) {
         if (!isPlaying) {
             isPlaying = true;
             music.play();
+            music.play();
             rotateDisc();
         }
     } else {
