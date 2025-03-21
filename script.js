@@ -11,19 +11,20 @@ function startDrag(e) {
     isDragging = true;
 }
 
-// Función para mover la aguja
+// Función para mover la aguja (solo hacia la izquierda)
 function moveNeedle(e) {
     if (!isDragging) return;
 
     // Detectar si es touch o mouse y obtener X
     let clientX = e.touches ? e.touches[0].clientX : e.clientX;
 
-    // Calcular el ángulo de la aguja
-    let angle = Math.min(45, Math.max(-45, (window.innerWidth - clientX) / window.innerWidth * 90 - 45));
+    // Calcular el ángulo de la aguja (solo hacia la izquierda)
+    let angle = Math.max(-45, Math.min(0, (window.innerWidth - clientX) / window.innerWidth * 90 - 45));
+
     needle.style.transform = `rotate(${angle}deg)`;
 
-    // Activar música cuando la aguja está fuera del centro
-    if (angle <= -15 || angle >= 15) {
+    // Activar música cuando la aguja está lejos del centro
+    if (angle <= -15) { 
         if (!isPlaying) {
             isPlaying = true;
             music.play();
