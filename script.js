@@ -30,7 +30,7 @@ function moveNeedle(e) {
             rotateDisc();
         }
     } else {
-        if (isPlaying) {
+        if (isPlaying)) {
             isPlaying = false;
             music.pause();
             cancelAnimationFrame(rotation);
