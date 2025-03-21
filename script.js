@@ -1,39 +1,29 @@
 const needle = document.getElementById("needle");
 const disc = document.getElementById("disc");
 const music = document.getElementById("music");
-
 let isPlaying = false;
 let isDragging = false;
 let rotation = null;
 
-// Ajustar el punto de rotación de la aguja
-needle.style.transformOrigin = "top center";
-
 // Función para iniciar el arrastre
 function startDrag(e) {
-    e.preventDefault();
+    e.preventDefault(); // Prevenir comportamientos inesperados
     isDragging = true;
 }
 
-// Función para mover la aguja (solo hacia la izquierda)
+// Función para mover la aguja
 function moveNeedle(e) {
     if (!isDragging) return;
 
-    // Detectar si es touch o mouse y obtener posición X
+    // Detectar si es touch o mouse y obtener X
     let clientX = e.touches ? e.touches[0].clientX : e.clientX;
 
-    // Obtener el centro de la pantalla
-    let centerX = window.innerWidth / 2;
+    // Calcular el ángulo de la aguja
+    let angle = Math.min(45, Math.max(-45, (window.innerWidth - clientX) / window.innerWidth * 90 - 45));
+    needle.style.transform = rotate(${angle}deg);
 
-    // Calcular ángulo basado en la posición del dedo o ratón
-    let angle = ((centerX - clientX) / centerX) * 45; 
-    angle = Math.max(-45, Math.min(0, angle)); // Limitar entre 0° y -45°
-
-    // Aplicar la rotación sin afectar la posición de la aguja
-    needle.style.transform = `rotate(${angle}deg)`;
-
-    // Activar música cuando la aguja está sobre el vinilo
-    if (angle <= -15) { 
+    // Activar música cuando la aguja está fuera del centro
+    if (angle <= -15 || angle >= 15) {
         if (!isPlaying) {
             isPlaying = true;
             music.play();
@@ -70,7 +60,7 @@ function rotateDisc() {
     function animate() {
         if (isPlaying) {
             deg = (deg + 1) % 360;
-            disc.style.transform = `rotate(${deg}deg)`;
+            disc.style.transform = rotate(${deg}deg);
             rotation = requestAnimationFrame(animate);
         }
     }
