@@ -30,7 +30,7 @@ function moveNeedle(e) {
     angle = Math.max(-45, Math.min(0, angle)); // Limitar entre 0° y -45°
 
     // Aplicar la rotación sin afectar la posición de la aguja
-    needle.style.transform = `rotate(${angle}deg)`;
+    needle.style.transform = rotate(${angle}deg);
 
     // Activar música cuando la aguja está sobre el vinilo
     if (angle <= -15) { 
@@ -70,7 +70,7 @@ function rotateDisc() {
     function animate() {
         if (isPlaying) {
             deg = (deg + 1) % 360;
-            disc.style.transform = `rotate(${deg}deg)`;
+            disc.style.transform = rotate(${deg}deg);
             rotation = requestAnimationFrame(animate);
         }
     }
