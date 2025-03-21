@@ -20,9 +20,9 @@ function moveNeedle(e) {
 
     // Calcular el ángulo de la aguja
     let angle = Math.min(45, Math.max(-45, (window.innerWidth - clientX) / window.innerWidth * 90 - 45));
-    needle.style.transform = rotate(${angle}deg);
+    needle.style.transform = `rotate(${angle}deg)`;
 
-    // Activar música cuando la aguja está fuera del centro
+// Activar música cuando la aguja está fuera del centro
     if (angle <= -15 || angle >= 15) {
         if (!isPlaying) {
             isPlaying = true;
@@ -30,13 +30,13 @@ function moveNeedle(e) {
             rotateDisc();
         }
     } else {
-        if (isPlaying) {
-            isPlaying = false;
-            music.pause();
-            cancelAnimationFrame(rotation);
-        }
+    if (isPlaying) {
+        isPlaying = false;
+        music.pause();
+        cancelAnimationFrame(rotation);
     }
 }
+
 
 // Función para detener el arrastre
 function stopDrag(e) {
