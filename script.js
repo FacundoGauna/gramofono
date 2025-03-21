@@ -1,10 +1,13 @@
 const needle = document.getElementById("needle");
 const disc = document.getElementById("disc");
 const music = document.getElementById("music");
+const volumeSlider = document.getElementById("volumeSlider");
+
 
 let isPlaying = false;
 let isDragging = false;
 let rotation = null;
+let music.volume = 0;
 
 // Ajustar el punto de rotación de la aguja
 needle.style.transformOrigin = "top center";
@@ -64,6 +67,11 @@ document.addEventListener("touchmove", moveNeedle, { passive: false });
 
 document.addEventListener("mouseup", stopDrag);
 document.addEventListener("touchend", stopDrag);
+
+// Función para ajustar el volumen
+volumeSlider.addEventListener("input", function () {
+    music.volume = volumeSlider.value;
+});
 
 // Función para girar el disco (sin impulsos)
 function rotateDisc() {
