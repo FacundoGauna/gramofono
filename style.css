@@ -44,19 +44,10 @@ h2 { font-size: 1.2rem; }
     max-width: 200px;
     max-height: 200px;
     background: black;
-    border-radius: 50%;
-    transition: transform 0.5s;
-}
-
-/* Centro del disco */
-.disc {
-    content: "";
-    width: 15%;
-    height: 15%;
-    background: red;
-    background-image: url("IMG_8408.jpg");
+    background-image: url("vinilo-maybe.png");
     background-size: cover;
     border-radius: 50%;
+    transition: transform 0.5s;
 }
 
 /* Aguja del gramófono */
