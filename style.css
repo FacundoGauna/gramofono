@@ -6,7 +6,8 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background: url("assets/mimbre.jpg") no-repeat center center fixed;
+    background-size: cover;
     font-family: Arial, sans-serif;
     text-align: center;
     overflow: hidden;
@@ -44,7 +45,7 @@ h2 { font-size: 1.2rem; }
     max-width: 200px;
     max-height: 200px;
     background: black;
-    background-image: url("vinilo-maybe.png");
+    background-image: url("assets/vinilo-maybe.png");
     background-size: cover;
     border-radius: 50%;
     transition: transform 0.5s;
