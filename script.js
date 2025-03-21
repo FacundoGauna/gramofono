@@ -19,12 +19,12 @@ function moveNeedle(e) {
     let clientX = e.touches ? e.touches[0].clientX : e.clientX;
 
     // Calcular el ángulo de la aguja (solo hacia la izquierda)
-    let angle = Math.max(45, Math.min(0, (window.innerWidth - clientX) / window.innerWidth * 90 - 45));
+    let angle = Math.max(-45, Math.min(0, (window.innerWidth - clientX) / window.innerWidth * 90 - 45));
 
     needle.style.transform = `rotate(${angle}deg)`;
 
     // Activar música cuando la aguja está lejos del centro
-    if (angle <= -25) { 
+    if (angle <= -15) { 
         if (!isPlaying) {
             isPlaying = true;
             music.play();
