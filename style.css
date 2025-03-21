@@ -65,6 +65,35 @@ h2 { font-size: 1.2rem; }
     transition: transform 0.1s ease;
     cursor: grab;
 }
+/* Slider para volumen */
+#volumeSlider {
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    width: 40%;
+    transform: rotate(-90deg);
+    appearance: none;
+    background: transparent;
+}
+
+/* Estilos para personalizar el control deslizante */
+#volumeSlider::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 5px;
+    background: #ccc;
+    border-radius: 5px;
+}
+
+#volumeSlider::-webkit-slider-thumb {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: black;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -5px;
+}
+
 
 /* 📱 Estilos para móviles */
 @media (max-width: 600px) {
